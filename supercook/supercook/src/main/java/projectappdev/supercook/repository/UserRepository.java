@@ -5,8 +5,5 @@ import org.springframework.stereotype.Repository;
 import projectappdev.supercook.entity.UserEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
-    
-    // User-defined method to search for a student by name
-    public UserEntity findByUsername(String username);
+public interface UserRepository extends JpaRepository<UserEntity, String> {
 }

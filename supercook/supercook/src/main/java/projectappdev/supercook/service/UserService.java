@@ -1,55 +1,38 @@
 package projectappdev.supercook.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Service;
+
+import projectappdev.supercook.Request.LoginRequest;
 import projectappdev.supercook.entity.UserEntity;
 import projectappdev.supercook.repository.UserRepository;
 
-import java.util.List;
-
 @Service
 public class UserService {
-
-    @Autowired
-    private UserRepository userrepository;
-
-    // Default constructor
-    public UserService(){
-        super();
-    }
-
-    // Create (Post) a new student record (C of CRUD)
-    public UserEntity postUserRecord(UserEntity user) {
-        return userrepository.save(user);
-    }
-
-    // Read (Get) all student records (R of CRUD)
-    public List<UserEntity> getAllUsers() {
-        return userrepository.findAll();
-    }
     
-    // GET BY ID
-    public UserEntity getUserById(int id) {
-        return userrepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " not found"));
+    @Autowired
+    UserRepository userRepository;
+    public UserEntity  addUser(UserEntity  user) {
+        return userRepository.save(user);
     }
 
-    // UPDATE
-    public UserEntity updateUserDetails(UserEntity updatedUser, int id) {
-    	UserEntity existingUser = userrepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " not found"));
+    public Boolean loginUser(LoginRequest loginRequest) {
+        Optional<UserEntity> user = userRepository.findById(loginRequest.getUserId());
+        UserEntity user1 = user.get();
 
-    	existingUser.setUsername(updatedUser.getUsername());
-    	existingUser.setPassword(updatedUser.getPassword());
-    	existingUser.setEmail(updatedUser.getEmail());
+        if(user1 == null){
+            return false;
+        }
 
-        return userrepository.save(existingUser);
-    }
 
-    // DELETE
-    public void deleteUser(int id) {
-        UserEntity user = userrepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find user with ID " + id));
-        userrepository.delete(user);
-    }
+        if(!user1.getPassword().equals(loginRequest.getPassword())){
+            return false;
+        }
+
+        return true;
+
+}
 }

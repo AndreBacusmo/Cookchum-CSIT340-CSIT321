@@ -1,46 +1,32 @@
 package projectappdev.supercook.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import projectappdev.supercook.Request.LoginRequest;
 import projectappdev.supercook.entity.UserEntity;
+import projectappdev.supercook.repository.UserRepository;
 import projectappdev.supercook.service.UserService;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(method = RequestMethod.GET,path="/api/supercook")
 public class UserController {
 
     @Autowired
-    UserService userservice;
+    UserService userService;
 
-    @GetMapping("/print")
-    public String print() {
-        return "Hello, Firstname Lastname";
+    @PostMapping("/addUser")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public UserEntity addUser(@RequestBody UserEntity user) {
+        return userService.addUser(user);
     }
 
-    // Create (Post) a new student record
-    @PostMapping("/postuserrecord")
-    public UserEntity postUserRecord(@RequestBody UserEntity user) {
-        return userservice.postUserRecord(user);
-    }
-  
-    // Read (Get) all student records
-    @GetMapping("/getAllUsers")
-    public List <UserEntity> getAllUsers() {
-        return userservice.getAllUsers();
-    }
-
-    // UPDATE admin
-    @PutMapping("/{id}")
-    public UserEntity updateUser(@PathVariable int id, @RequestBody UserEntity updatedUser) {
-        return userservice.updateUserDetails(updatedUser, id);
-    }
-
-    // DELETE request to delete an admin by ID
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable int id) {
-        userservice.deleteUser(id);
+    @PostMapping("/loginUser")
+    public Boolean loginUser(@RequestBody LoginRequest loginRequest){
+        return userService.loginUser(loginRequest);
     }
 }
