@@ -1,13 +1,13 @@
 package projectappdev.supercook.Request;
 
-public class LoginRequest {
+public class AdminRequest {
 	
 
-	public LoginRequest() {
+	public AdminRequest() {
 		
 	}
 	
-	public LoginRequest(String userId, String password) {
+	public AdminRequest(String userId, String password) {
 		super();
 		this.userId = userId;
 		this.password = password;
