@@ -1,13 +1,12 @@
+// src/App.js
 import React from 'react';
-import Home from './home';
-import './App.css'; // Import styles for App
-
-const App = () => {
+import AdminCRUD from './AdminCRUD';
+function App() {
   return (
     <div className="App">
-      <Home /> {/* Render the Home component */}
+      <AdminCRUD />
     </div>
   );
-};
+}
 
 export default App;
