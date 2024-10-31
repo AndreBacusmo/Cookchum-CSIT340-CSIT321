@@ -1,13 +1,14 @@
+// src/App.js
 import React from 'react';
-import Home from './home';
-import './App.css'; // Import styles for App
+import './App.css';
+import IngredientCrud from './IngredientCrud';
 
-const App = () => {
-  return (
-    <div className="App">
-      <Home /> {/* Render the Home component */}
-    </div>
-  );
-};
+function App() {
+    return (
+        <div className="App">
+            <IngredientCrud />
+        </div>
+    );
+}
 
 export default App;
