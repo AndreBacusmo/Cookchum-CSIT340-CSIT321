@@ -1,6 +1,5 @@
-// BMICalculator.jsx
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Box, Grid, Paper, Card, CardContent } from '@mui/material';
+import { TextField, Button, Typography, Box, Grid, Paper, Card, CardContent, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 function BMICalculator() {
   const [weight, setWeight] = useState('');
@@ -8,10 +7,19 @@ function BMICalculator() {
   const [bmi, setBmi] = useState(null);
   const [message, setMessage] = useState('');
   const [suggestion, setSuggestion] = useState('');
+  const [unit, setUnit] = useState('metric'); // New state for unit type
 
   const calculateBMI = () => {
-    const weightInKg = parseFloat(weight);
-    const heightInMeters = parseFloat(height) / 100; // Convert cm to meters
+    let weightInKg;
+    let heightInMeters;
+
+    if (unit === 'metric') {
+      weightInKg = parseFloat(weight);
+      heightInMeters = parseFloat(height) / 100; // Convert cm to meters
+    } else {
+      weightInKg = parseFloat(weight) * 0.453592; // Convert lbs to kg
+      heightInMeters = parseFloat(height) * 0.0254; // Convert inches to meters
+    }
 
     if (weightInKg > 0 && heightInMeters > 0) {
       const bmiValue = weightInKg / (heightInMeters * heightInMeters);
@@ -59,8 +67,19 @@ function BMICalculator() {
       <Grid item xs={12} md={6}>
         <Paper elevation={4} sx={{ p: 3 }}>
           <Typography variant="h5" gutterBottom align="center">BMI Calculator</Typography>
+          
+          {/* Unit Selector */}
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <InputLabel>Unit</InputLabel>
+            <Select value={unit} onChange={(e) => setUnit(e.target.value)} label="Unit">
+              <MenuItem value="metric">Metric (kg, cm)</MenuItem>
+              <MenuItem value="imperial">Standard (lbs, in)</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* Weight Input */}
           <TextField
-            label="Weight (kg)"
+            label={unit === 'metric' ? "Weight (kg)" : "Weight (lbs)"}
             variant="outlined"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
@@ -68,8 +87,10 @@ function BMICalculator() {
             margin="normal"
             type="number"
           />
+
+          {/* Height Input */}
           <TextField
-            label="Height (cm)"
+            label={unit === 'metric' ? "Height (cm)" : "Height (in)"}
             variant="outlined"
             value={height}
             onChange={(e) => setHeight(e.target.value)}
@@ -77,6 +98,7 @@ function BMICalculator() {
             margin="normal"
             type="number"
           />
+
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Button variant="contained" color="primary" onClick={calculateBMI} sx={{ mr: 1 }}>
               Calculate BMI
