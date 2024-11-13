@@ -57,7 +57,6 @@ const Register = () => {
               className="show-password-icon"
               onClick={togglePasswordVisibility}
             >
-              {passwordVisible ? '👁️' : '👁️‍🗨️'}
             </button>
           </div>
 
@@ -74,7 +73,6 @@ const Register = () => {
               className="show-password-icon"
               onClick={toggleConfirmPasswordVisibility}
             >
-              {confirmPasswordVisible ? '👁️' : '👁️‍🗨️'}
             </button>
           </div>
 

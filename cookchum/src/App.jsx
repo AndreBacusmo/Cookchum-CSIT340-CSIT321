@@ -7,6 +7,8 @@ import Login from './components/Login'; // Import Login component
 import './App.css';
 import Register from './components/Register';
 import Footer from './components/footer';
+import AboutUs from './components/AboutUs';
+
 
 function App() {
   return (
@@ -22,13 +24,13 @@ function App() {
                   <MealType title="High Protein" image="/images/high-protein.jpg" />
                   <MealType title="Low Calorie" image="/images/low-calorie.jpg" />
                   <MealType title="High Often" image="/images/high-often.jpg" />
-                  
                 </div>
                 <Sidebar />
               </main>
             } />
             <Route path="/login" element={<Login />} />  {/* Login route */}
             <Route path="/register" element={<Register />} />
+            <Route path="/aboutus" element={<AboutUs />} />
           </Routes>
         </div>
         <Footer/>
