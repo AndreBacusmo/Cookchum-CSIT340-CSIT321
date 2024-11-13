@@ -43,21 +43,13 @@ const Dashboard = () => {
     const handleSavedRecipe = () => {
         // Check if user is logged in
         if (!userId) {
-            // If not logged in, prompt for login information
-            const loginUsername = prompt("Enter your username:");
-            const loginPassword = prompt("Enter your password:");
-            // Here, you'd typically verify login credentials
-            if (loginUsername && loginPassword) {
-                alert("Login successful! Redirecting to favorited recipes...");
-                navigate('/FavoriteRecipe', { state: { userId: loginUsername, username: loginUsername } });
-            } else {
-                alert("Login failed. Please try again.");
-            }
+            navigate('/login');
         } else {
             // If logged in, navigate to favorited recipes
             navigate('/FavoriteRecipe', { state: { userId, username } });
         }
     };
+
 
     return (
         <div className="dashboard-container">
