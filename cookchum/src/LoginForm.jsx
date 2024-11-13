@@ -16,7 +16,7 @@ const LoginForm = () => {
         setSuccessMessage('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/supercook/login', {
+            const response = await fetch('http://localhost:8080/api/cookchum/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ const LoginForm = () => {
                 setSuccessMessage('Login successful!');
                 setTimeout(() => {
                     // Redirect and pass user data
-                    navigate('/dashboard', { state: { userId: data.userId, username: data.username } });
+                    navigate('/', { state: { userId: data.userId, username: data.username } });
                 }, 1000);
             } else {
                 const errorText = await response.text();
