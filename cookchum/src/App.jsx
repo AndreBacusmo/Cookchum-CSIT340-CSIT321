@@ -5,12 +5,14 @@ import Sidebar from './components/Sidebar';
 import MealType from './components/MealType';
 import Login from './components/Login'; // Import Login component
 import './App.css';
+import Register from './components/Register';
+import Footer from './components/footer';
 
 function App() {
   return (
     <Router>
       <div className="app">
-        <Header />
+      <Header/>
         <div>
           <Routes>
             <Route path="/" element={
@@ -26,8 +28,10 @@ function App() {
               </main>
             } />
             <Route path="/login" element={<Login />} />  {/* Login route */}
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
+        <Footer/>
       </div>
     </Router>
   );
