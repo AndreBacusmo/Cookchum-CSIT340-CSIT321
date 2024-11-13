@@ -7,6 +7,7 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -62,15 +63,25 @@ const LoginForm = () => {
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
                     <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                    <div className="show-password-container">
+                        <input
+                            type="checkbox"
+                            id="show-password"
+                            checked={showPassword}
+                            onChange={() => setShowPassword(!showPassword)}
+                        />
+                        <label htmlFor="show-password">Show Password</label>
+                    </div>
                 </div>
+
                 <button type="submit" className="login-button">Login</button>
-                <button onClick={handleRegisterRedirect} className="register-button">Register</button>
+                <button type="button" onClick={handleRegisterRedirect} className="register-button">Register</button>
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
             </form>

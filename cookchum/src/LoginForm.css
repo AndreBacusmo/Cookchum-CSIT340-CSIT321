@@ -23,11 +23,25 @@ label {
     margin-bottom: 5px;
 }
 
-input {
+input[type="email"],
+input[type="password"],
+input[type="text"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 3px;
+}
+
+.show-password-container {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    width: 100px;
+    
+}
+
+.show-password-container input[type="checkbox"] {
+    margin-right: 2px;
 }
 
 .login-button {
@@ -40,7 +54,8 @@ input {
     cursor: pointer;
 }
 
-.error-message, .success-message {
+.error-message,
+.success-message {
     color: #e74c3c;
     font-weight: bold;
     margin-top: 10px;

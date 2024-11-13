@@ -14,7 +14,7 @@ const RegistrationForm = () => {
         const user = { username, email, password };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/supercook/postuserrecord', user);
+            const response = await axios.post('http://localhost:8080/api/cookchum/postuserrecord', user);
             console.log('User created:', response.data);
 
             setMessage('Registration successful!');
