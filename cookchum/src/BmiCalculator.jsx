@@ -73,82 +73,92 @@ function BMICalculator() {
   };
 
   return (
-    <Grid container spacing={4} sx={{ maxWidth: 900, mx: 'auto', mt: 5 }}>
-      <Grid item xs={12} md={6}>
-        <Paper elevation={4} sx={{ p: 3 }}>
-          <Typography variant="h5" gutterBottom align="center">BMI Calculator</Typography>
-          
-          <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel>Unit</InputLabel>
-            <Select value={unit} onChange={(e) => setUnit(e.target.value)} label="Unit">
-              <MenuItem value="metric">Metric (kg, cm)</MenuItem>
-              <MenuItem value="imperial">Standard (lbs, ft, in)</MenuItem>
-            </Select>
-          </FormControl>
+    <Box sx={{
+      background: 'linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)',
+      minHeight: '100vh',
+      py: 5,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      <Grid container spacing={4} sx={{ maxWidth: 900, mx: 'auto', p: 4, borderRadius: 3, boxShadow: 4, background: 'white' }}>
+        
+        {/* BMI Calculator Box */}
+        <Grid item xs={12} md={6}>
+          <Box sx={{ border: '1px solid #e0e0e0', borderRadius: 3, p: 3, boxShadow: 2, background: '#fafafa' }}>
+            <Typography variant="h5" gutterBottom align="center">BMI Calculator</Typography>
+            
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <InputLabel>Unit</InputLabel>
+              <Select value={unit} onChange={(e) => setUnit(e.target.value)} label="Unit">
+                <MenuItem value="metric">Metric (kg, cm)</MenuItem>
+                <MenuItem value="imperial">Standard (lbs, ft, in)</MenuItem>
+              </Select>
+            </FormControl>
 
-          <TextField
-            label={unit === 'metric' ? "Weight (kg)" : "Weight (lbs)"}
-            variant="outlined"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            fullWidth
-            margin="normal"
-            type="number"
-          />
-
-          {unit === 'metric' ? (
             <TextField
-              label="Height (cm)"
+              label={unit === 'metric' ? "Weight (kg)" : "Weight (lbs)"}
               variant="outlined"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
               fullWidth
               margin="normal"
               type="number"
             />
-          ) : (
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              <TextField
-                label="Height (ft)"
-                variant="outlined"
-                value={feet}
-                onChange={(e) => setFeet(e.target.value)}
-                margin="normal"
-                type="number"
-              />
-              <TextField
-                label="Height (in)"
-                variant="outlined"
-                value={inches}
-                onChange={handleInchesChange}
-                margin="normal"
-                type="number"
-              />
-            </Box>
-          )}
 
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-            <Button variant="contained" color="primary" onClick={calculateBMI} sx={{ mr: 1 }}>
-              Calculate BMI
-            </Button>
-            <Button variant="outlined" color="secondary" onClick={resetFields}>
-              Reset
-            </Button>
+            {unit === 'metric' ? (
+              <TextField
+                label="Height (cm)"
+                variant="outlined"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                fullWidth
+                margin="normal"
+                type="number"
+              />
+            ) : (
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <TextField
+                  label="Height (ft)"
+                  variant="outlined"
+                  value={feet}
+                  onChange={(e) => setFeet(e.target.value)}
+                  margin="normal"
+                  type="number"
+                />
+                <TextField
+                  label="Height (in)"
+                  variant="outlined"
+                  value={inches}
+                  onChange={handleInchesChange}
+                  margin="normal"
+                  type="number"
+                />
+              </Box>
+            )}
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+              <Button variant="contained" color="primary" onClick={calculateBMI} sx={{ mr: 1 }}>
+                Calculate BMI
+              </Button>
+              <Button variant="outlined" color="secondary" onClick={resetFields}>
+                Reset
+              </Button>
+            </Box>
+
+            {bmi && (
+              <Box sx={{ mt: 3, textAlign: 'center' }}>
+                <Typography variant="h6">Your BMI is: {bmi}</Typography>
+                <Typography color="text.secondary">{message}</Typography>
+                <Typography sx={{ mt: 1 }}>{suggestion}</Typography>
+              </Box>
+            )}
           </Box>
+        </Grid>
 
-          {bmi && (
-            <Box sx={{ mt: 3, textAlign: 'center' }}>
-              <Typography variant="h6">Your BMI is: {bmi}</Typography>
-              <Typography color="text.secondary">{message}</Typography>
-              <Typography sx={{ mt: 1 }}>{suggestion}</Typography>
-            </Box>
-          )}
-        </Paper>
-      </Grid>
-
-      <Grid item xs={12} md={6}>
-        <Card elevation={4}>
-          <CardContent>
+        {/* BMI Classification Box */}
+        <Grid item xs={12} md={6}>
+          <Box sx={{ border: '1px solid #e0e0e0', borderRadius: 3, p: 3, boxShadow: 2, background: '#fafafa' }}>
             <Typography variant="h6" align="center" gutterBottom>
               BMI Classification
             </Typography>
@@ -186,10 +196,10 @@ function BMICalculator() {
                 </tr>
               </tbody>
             </Box>
-          </CardContent>
-        </Card>
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 }
 
