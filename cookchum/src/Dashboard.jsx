@@ -1,70 +1,109 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Dashboard.css';
-import axios from 'axios';
 
 const Dashboard = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { userId, username } = location.state || {};
 
-    const handleDeleteAccount = async () => {
-        if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-            try {
-                await axios.delete(`http://localhost:8080/api/supercook/${userId}`);
-                alert('Your account has been deleted successfully.');
-                navigate('/'); // Redirect to login page
-            } catch (error) {
-                console.error('Error deleting account:', error);
-                alert('There was an error deleting your account. Please try again.');
-            }
-        }
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+    const [recipes] = useState([
+        { name: "Pasta", ingredients: ["Garlic", "Olive Oil", "Tomato"] },
+        { name: "Garlic Bread", ingredients: ["Butter", "Garlic", "Bread"] },
+        { name: "Omelette", ingredients: ["Egg", "Milk", "Salt"] },
+        { name: "Stir-Fry Vegetables", ingredients: ["Carrot", "Bell Pepper", "Garlic"] },
+    ]);
+    const [filteredRecipes, setFilteredRecipes] = useState([]);
+
+    const ingredientCategories = {
+        "Pantry Essentials": ["Butter", "Egg", "Garlic", "Milk", "Onion", "Sugar", "Olive Oil"],
+        "Vegetables & Greens": ["Garlic", "Onion", "Bell Pepper", "Carrot", "Scallion"],
     };
 
-    const handleUpdateAccount = () => {
-        navigate('/update', { state: { userId, username } }); // Navigate to the update account page
+    // Handle ingredient click
+    const handleIngredientClick = (ingredient) => {
+        let updatedIngredients;
+        if (selectedIngredients.includes(ingredient)) {
+            // Deselect ingredient if it's already selected
+            updatedIngredients = selectedIngredients.filter(i => i !== ingredient);
+        } else {
+            // Add ingredient to selected list
+            updatedIngredients = [...selectedIngredients, ingredient];
+        }
+        setSelectedIngredients(updatedIngredients);
+
+        // Update filtered recipes based on selected ingredients
+        const matchedRecipes = recipes.filter(recipe =>
+            updatedIngredients.every(selected => recipe.ingredients.includes(selected))
+        );
+        setFilteredRecipes(updatedIngredients.length > 0 ? matchedRecipes : []);
     };
-    const handleSavedRecipe= () => {
-        navigate('/FavoriteRecipe', { state: { userId, username } }); // Navigate to the update account page
+
+    const handleSavedRecipe = () => {
+        // Check if user is logged in
+        if (!userId) {
+            // If not logged in, prompt for login information
+            const loginUsername = prompt("Enter your username:");
+            const loginPassword = prompt("Enter your password:");
+            // Here, you'd typically verify login credentials
+            if (loginUsername && loginPassword) {
+                alert("Login successful! Redirecting to favorited recipes...");
+                navigate('/FavoriteRecipe', { state: { userId: loginUsername, username: loginUsername } });
+            } else {
+                alert("Login failed. Please try again.");
+            }
+        } else {
+            // If logged in, navigate to favorited recipes
+            navigate('/FavoriteRecipe', { state: { userId, username } });
+        }
     };
 
     return (
         <div className="dashboard-container">
             <div className="sidebar">
-                <div className="user-info">
-                    <h2>Welcome to the Dashboard</h2>
-                    <p><strong>User ID:</strong> {userId || "N/A"}</p>
-                    <p><strong>Username:</strong> {username || "N/A"}</p>
-                    
-                    {/* Delete and Update Buttons */}
-                    <div className="user-actions">
-                        <button className="action-button delete-button" onClick={handleDeleteAccount}>Delete Account</button>
-                        <button className="action-button update-button" onClick={handleUpdateAccount}>Update Account</button>
-                    </div>
+                <div className="search-bar">
+                    <input type="text" placeholder="Add/remove/paste ingredients" />
+                </div>
+                <div className="ingredient-categories">
+                    {Object.keys(ingredientCategories).map((category) => (
+                        <div key={category} className="category">
+                            <h4>{category}</h4>
+                            <div className="ingredients-list">
+                                {ingredientCategories[category].map((ingredient) => (
+                                    <button 
+                                        key={ingredient}
+                                        onClick={() => handleIngredientClick(ingredient)}
+                                        className={`ingredient-button ${selectedIngredients.includes(ingredient) ? 'selected' : ''}`}
+                                    >
+                                        {ingredient}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
                 <nav className="menu">
                     <ul>
-                        <li>Smart Thermometer</li>
-                        <li>Meal Planning</li>
-                        <li>Recipes</li>
-                        <li>Articles</li>
                         <li onClick={handleSavedRecipe}>Saved Recipes</li>
-                        <li >More Tools</li>
+                        <li>More Tools</li>
                         <li>Download the App</li>
                     </ul>
                 </nav>
             </div>
             <div className="main-content">
-                <h3>What are your favorite cuisines?</h3>
-                <div className="cuisine-options">
-                    <button>American</button>
-                    <button>Kid-Friendly</button>
-                    <button>Italian</button>
-                    <button>Asian</button>
-                    <button>Mexican</button>
-                    <button>Southern & Soul Food</button>
-                    <button>French</button>
-                </div>
+                <h3>Recipes with Selected Ingredients</h3>
+                {filteredRecipes.length > 0 ? (
+                    <ul className="recipe-list">
+                        {filteredRecipes.map((recipe, index) => (
+                            <li key={index} className="recipe-item">
+                                {recipe.name}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No recipes match the selected ingredients.</p>
+                )}
             </div>
         </div>
     );
