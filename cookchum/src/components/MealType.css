@@ -1,0 +1,16 @@
+.meal-type {
+    text-align: center;
+  }
+  
+  .meal-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .meal-type h3 {
+    margin-top: 10px;
+    font-size: 1.2em;
+  }
+  
