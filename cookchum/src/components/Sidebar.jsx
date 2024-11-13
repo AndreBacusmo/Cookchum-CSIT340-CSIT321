@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar({ goToHomepage }) {
   const [selectedMealType, setSelectedMealType] = useState('');
+  const navigate = useNavigate();
 
   const handleMealTypeChange = (event) => {
     setSelectedMealType(event.target.value);
   };
 
+  const handleSignInClick = () => {
+    navigate('/login');
+  };
+
   return (
     <aside className="sidebar">
       <div className="login-signup">
-        <button>Sign in / Sign up</button>
+        <button onClick={handleSignInClick}>Sign in / Sign up</button>
       </div>
       <input type="text" placeholder="Search..." className="search-bar" />
 
