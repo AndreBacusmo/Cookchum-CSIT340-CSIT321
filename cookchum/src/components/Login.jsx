@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate('/'); // Assuming '/' is your starting page route
+  };
+
   return (
     <div className="login-page">
       <header className="header">
@@ -22,8 +29,10 @@ const Login = () => {
           <button type="submit" className="login-button">Login</button>
           <p className="register-text">
             Don't have an account? <a href="#">Register</a>
+            
           </p>
         </form>
+        <button onClick={handleBackClick} className="back-button">Back</button> {/* Back Button */}
       </div>
       <footer className="footer">
         <div className="footer-content">
