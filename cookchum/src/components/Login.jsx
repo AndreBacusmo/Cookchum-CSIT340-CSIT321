@@ -33,7 +33,7 @@ const Login = () => {
               className="show-password-icon"
               onClick={togglePasswordVisibility}
             >
-              {passwordVisible ? '👁️' : '👁️‍🗨️'}
+             
             </button>
           </div>
 
