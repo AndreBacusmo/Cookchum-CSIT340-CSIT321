@@ -81,11 +81,17 @@ function BMICalculator() {
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <Grid container spacing={4} sx={{ maxWidth: 900, mx: 'auto', p: 4, borderRadius: 3, boxShadow: 4, background: 'white' }}>
+      <Grid container spacing={4} sx={{ maxWidth: 900, mx: 'auto', p: 4, borderRadius: 3, boxShadow: 4 }}>
         
         {/* BMI Calculator Box */}
         <Grid item xs={12} md={6}>
-          <Box sx={{ border: '1px solid #e0e0e0', borderRadius: 3, p: 3, boxShadow: 2, background: '#fafafa' }}>
+          <Box sx={{ 
+            border: '1px solid #e0e0e0', 
+            borderRadius: 3, 
+            p: 3, 
+            boxShadow: 2, 
+            backgroundColor: 'rgba(255, 255, 255, 0.5)' // Light, semi-transparent white
+          }}>
             <Typography variant="h5" gutterBottom align="center">BMI Calculator</Typography>
             
             <FormControl fullWidth sx={{ mb: 2 }}>
@@ -158,7 +164,13 @@ function BMICalculator() {
 
         {/* BMI Classification Box */}
         <Grid item xs={12} md={6}>
-          <Box sx={{ border: '1px solid #e0e0e0', borderRadius: 3, p: 3, boxShadow: 2, background: '#fafafa' }}>
+          <Box sx={{ 
+            border: '1px solid #e0e0e0', 
+            borderRadius: 3, 
+            p: 3, 
+            boxShadow: 2, 
+            backgroundColor: 'rgba(255, 255, 255, 0.5)' // Light, semi-transparent white
+          }}>
             <Typography variant="h6" align="center" gutterBottom>
               BMI Classification
             </Typography>
