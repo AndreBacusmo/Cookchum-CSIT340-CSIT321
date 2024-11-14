@@ -4,7 +4,7 @@ import './MealType.css';
 function MealType({ title, image }) {
   return (
     <div className="meal-type">
-      <img src={image} alt={title} className="meal-image" />
+      <img src="src\images\image2.png" alt={title} className="meal-image" />
       <h3>{title}</h3>
     </div>
   );

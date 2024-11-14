@@ -8,6 +8,7 @@ import './App.css';
 import Register from './components/Register';
 import Footer from './components/footer';
 import AboutUs from './components/AboutUs';
+import FavoriteRecipesTab from './components/FavoriteTab'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path="/login" element={<Login />} />  {/* Login route */}
             <Route path="/register" element={<Register />} />
             <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/FavoriteRecipe" element={<FavoriteRecipesTab/>}/>
           </Routes>
         </div>
         <Footer/>

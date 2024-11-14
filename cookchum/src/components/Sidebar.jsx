@@ -14,6 +14,10 @@ function Sidebar({ goToHomepage }) {
     navigate('/login');
   };
 
+  const handleSavedRecipe = () => {
+    navigate('/FavoriteRecipe');
+  };
+
   return (
     <aside className="sidebar">
       <div className="login-signup">
@@ -77,8 +81,8 @@ function Sidebar({ goToHomepage }) {
         </div>
       </section>
 
-      <button onClick={goToHomepage} className="homepage-button">
-        Go to Homepage
+      <button onClick={handleSavedRecipe} className="homepage-button">
+        Favorite Recipe
       </button>
     </aside>
   );

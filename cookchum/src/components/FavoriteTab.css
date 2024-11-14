@@ -1,0 +1,41 @@
+/* FavoriteTab.css */
+.paper-container {
+    padding: 1em;
+    margin-top: 1em;
+  }
+  
+  .header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+  
+  .create-button {
+    margin-bottom: 1em;
+  }
+  
+  .table-container {
+    margin-top: 1em;
+  }
+  
+  .table-cell {
+    font-weight: bold;
+  }
+  
+  .dialog-content {
+    padding: 1em;
+  }
+  
+  .dialog-actions {
+    justify-content: flex-end;
+  }
+  
+  .avatar-icon {
+    font-size: 2em;
+  }
+  
+  .table-cell-actions button {
+    margin-right: 0.5em;
+  }
+  
